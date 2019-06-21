@@ -11,3 +11,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_SwipeDetector_swipe_ended(gesture):
+	print(typeof(gesture))
+	pass # Replace with function body.
