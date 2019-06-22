@@ -411,7 +411,10 @@ current = true
 [node name="SwipeDetector" parent="." instance=ExtResource( 3 )]
 process_method = "Fixed"
 
+[node name="Position2D" type="Position2D" parent="."]
+
 [connection signal="swipe_ended" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_ended"]
+[connection signal="swipe_failed" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_failed"]
 [connection signal="swipe_started" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_started"]
 [connection signal="swipe_updated" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_updated"]
 [connection signal="swiped" from="SwipeDetector" to="." method="_on_SwipeDetector_swiped"]
