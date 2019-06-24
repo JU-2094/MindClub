@@ -355,20 +355,19 @@ transitions = [ "idle_left", "attack_left", SubResource( 27 ), "idle_left", "wal
 [sub_resource type="AnimationNodeStateMachinePlayback" id=64]
 
 [sub_resource type="RectangleShape2D" id=65]
-extents = Vector2( 21.4, 35.25 )
+extents = Vector2( 8.07408, 12.0741 )
 
 [sub_resource type="RectangleShape2D" id=66]
-extents = Vector2( 21.4, 36.2 )
+extents = Vector2( 7.77779, 11.7778 )
 
 [node name="Player" type="KinematicBody2D"]
+scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 19.475, 30.4 )
-scale = Vector2( 3.16389, 3.09655 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 0.75, 4.25, 15.5, 23.25 )
+region_rect = Rect2( 1, 6, 14, 23 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/attack_down = SubResource( 1 )
@@ -392,13 +391,11 @@ active = true
 parameters/playback = SubResource( 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 21.85, 24.7 )
 shape = SubResource( 65 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 20.9, 25.65 )
 shape = SubResource( 66 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -410,8 +407,6 @@ current = true
 
 [node name="SwipeDetector" parent="." instance=ExtResource( 3 )]
 process_method = "Fixed"
-
-[node name="Position2D" type="Position2D" parent="."]
 
 [connection signal="swipe_ended" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_ended"]
 [connection signal="swipe_failed" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_failed"]
