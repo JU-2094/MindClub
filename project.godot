@@ -16,7 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="MindClub"
+run/main_scene="res://scenes/Multmenu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Network="*res://scripts/networkdata.gd"
 
 [display]
 

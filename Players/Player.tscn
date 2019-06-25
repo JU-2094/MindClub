@@ -408,6 +408,13 @@ current = true
 [node name="SwipeDetector" parent="." instance=ExtResource( 3 )]
 process_method = "Fixed"
 
+[node name="name" type="Label" parent="."]
+margin_left = -16.2486
+margin_top = -23.2505
+margin_right = 18.7514
+margin_bottom = -9.25047
+text = "josue"
+
 [connection signal="swipe_ended" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_ended"]
 [connection signal="swipe_failed" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_failed"]
 [connection signal="swipe_started" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_started"]

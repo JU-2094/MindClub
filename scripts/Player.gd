@@ -17,7 +17,8 @@ var init_time
 var elapsed_time 
 var DO_DASH = 40
 var DISTANCE_DASH =  5000
-
+#Network
+slave var slave_position = Vector2()
 # ToDo List:
 # - Implement dash on the fly:
 #	-- Detect while updating the points, if the dash is the required action instead of waiting for end swipe
@@ -31,7 +32,7 @@ func _ready():
 	elapsed_time = 0
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	
 	if init_time > 0:
 		elapsed_time += OS.get_ticks_msec() - init_time
@@ -48,7 +49,12 @@ func _process(delta):
 		
 		# print('TIME (debug)', elapsed_time)
 		pass
-
+	if is_network_master():
+		rset_unreliable('slave_position', position)
+	else:
+		position = slave_position
+	if get_tree().is_network_server():
+		Network.update_position(int(name), position)
 	# move_and_slide(velocity, Vector2(0,0))
 	pass
 
@@ -131,3 +137,9 @@ func playerdirection():
 		velocity = velocity.normalized() * speed
 	if self.get_transform().origin == startpoint:
 		print("here")
+
+func init(nickname, start_position, is_slave):
+	$name.text = nickname
+	global_position = start_position
+	if is_slave:
+		print("slave!!",nickname)
