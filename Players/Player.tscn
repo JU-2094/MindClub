@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/players/character.png" type="Texture" id=2]
@@ -308,8 +308,10 @@ animation = "walk_up"
 [sub_resource type="AnimationNodeStateMachineTransition" id=56]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=57]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=58]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=59]
 switch_mode = 2
@@ -318,12 +320,34 @@ switch_mode = 2
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=61]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=62]
-switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=63]
+[sub_resource type="AnimationNodeStateMachineTransition" id=63]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=64]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=65]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=66]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=67]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=68]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=69]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=70]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=71]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=72]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=73]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=74]
+
+[sub_resource type="AnimationNodeStateMachine" id=75]
 states/attack_down/node = SubResource( 14 )
 states/attack_down/position = Vector2( 306, 409 )
 states/attack_left/node = SubResource( 15 )
@@ -349,16 +373,20 @@ states/walk_left/position = Vector2( 131, 296 )
 states/walk_right/node = SubResource( 25 )
 states/walk_right/position = Vector2( 768, 296 )
 states/walk_up/node = SubResource( 26 )
-states/walk_up/position = Vector2( 585, 50 )
-transitions = [ "idle_left", "attack_left", SubResource( 27 ), "idle_left", "walk_left", SubResource( 28 ), "idle_left", "idle_down", SubResource( 29 ), "idle_left", "idle_up", SubResource( 30 ), "idle_left", "idle_right", SubResource( 31 ), "idle_down", "attack_down", SubResource( 32 ), "idle_down", "walk_down", SubResource( 33 ), "idle_down", "idle_right", SubResource( 34 ), "idle_down", "idle_left", SubResource( 35 ), "idle_down", "idle_up", SubResource( 36 ), "idle_right", "walk_right", SubResource( 37 ), "idle_right", "attack_right", SubResource( 38 ), "idle_right", "idle_up", SubResource( 39 ), "idle_right", "idle_down", SubResource( 40 ), "idle_right", "idle_left", SubResource( 41 ), "idle_up", "walk_up", SubResource( 42 ), "idle_up", "attack_up", SubResource( 43 ), "idle_up", "idle_left", SubResource( 44 ), "idle_up", "idle_right", SubResource( 45 ), "idle_up", "idle_down", SubResource( 46 ), "walk_up", "idle_up", SubResource( 47 ), "walk_right", "idle_right", SubResource( 48 ), "walk_down", "idle_down", SubResource( 49 ), "walk_left", "idle_left", SubResource( 50 ), "walk_down", "dead", SubResource( 51 ), "idle_down", "dead", SubResource( 52 ), "walk_right", "dead", SubResource( 53 ), "idle_right", "dead", SubResource( 54 ), "idle_left", "dead", SubResource( 55 ), "walk_left", "dead", SubResource( 56 ), "walk_up", "dead", SubResource( 57 ), "idle_up", "dead", SubResource( 58 ), "attack_left", "idle_left", SubResource( 59 ), "attack_up", "idle_up", SubResource( 60 ), "attack_right", "idle_right", SubResource( 61 ), "attack_down", "idle_down", SubResource( 62 ) ]
+states/walk_up/position = Vector2( 596, 44 )
+transitions = [ "idle_left", "attack_left", SubResource( 27 ), "idle_left", "walk_left", SubResource( 28 ), "idle_left", "idle_down", SubResource( 29 ), "idle_left", "idle_up", SubResource( 30 ), "idle_left", "idle_right", SubResource( 31 ), "idle_down", "attack_down", SubResource( 32 ), "idle_down", "walk_down", SubResource( 33 ), "idle_down", "idle_right", SubResource( 34 ), "idle_down", "idle_left", SubResource( 35 ), "idle_down", "idle_up", SubResource( 36 ), "idle_right", "walk_right", SubResource( 37 ), "idle_right", "attack_right", SubResource( 38 ), "idle_right", "idle_up", SubResource( 39 ), "idle_right", "idle_down", SubResource( 40 ), "idle_right", "idle_left", SubResource( 41 ), "idle_up", "walk_up", SubResource( 42 ), "idle_up", "attack_up", SubResource( 43 ), "idle_up", "idle_left", SubResource( 44 ), "idle_up", "idle_right", SubResource( 45 ), "idle_up", "idle_down", SubResource( 46 ), "walk_right", "idle_right", SubResource( 47 ), "walk_down", "idle_down", SubResource( 48 ), "walk_down", "dead", SubResource( 49 ), "idle_down", "dead", SubResource( 50 ), "walk_right", "dead", SubResource( 51 ), "idle_right", "dead", SubResource( 52 ), "idle_left", "dead", SubResource( 53 ), "walk_left", "dead", SubResource( 54 ), "walk_up", "dead", SubResource( 55 ), "idle_up", "dead", SubResource( 56 ), "attack_left", "idle_left", SubResource( 57 ), "attack_up", "idle_up", SubResource( 58 ), "attack_right", "idle_right", SubResource( 59 ), "attack_down", "idle_down", SubResource( 60 ), "walk_left", "idle_left", SubResource( 61 ), "walk_up", "idle_up", SubResource( 62 ), "idle_left", "walk_down", SubResource( 63 ), "idle_left", "walk_up", SubResource( 64 ), "idle_left", "walk_right", SubResource( 65 ), "idle_down", "walk_left", SubResource( 66 ), "idle_down", "walk_up", SubResource( 67 ), "idle_down", "walk_right", SubResource( 68 ), "idle_right", "walk_down", SubResource( 69 ), "idle_right", "walk_left", SubResource( 70 ), "idle_right", "walk_up", SubResource( 71 ), "idle_up", "walk_left", SubResource( 72 ), "idle_up", "walk_down", SubResource( 73 ), "idle_up", "walk_right", SubResource( 74 ) ]
+graph_offset = Vector2( 0, -0.156483 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=64]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=76]
 
-[sub_resource type="RectangleShape2D" id=65]
+[sub_resource type="RectangleShape2D" id=77]
 extents = Vector2( 8.07408, 12.0741 )
 
-[sub_resource type="RectangleShape2D" id=66]
+[sub_resource type="RectangleShape2D" id=78]
 extents = Vector2( 7.77779, 11.7778 )
+
+[sub_resource type="RectangleShape2D" id=79]
+extents = Vector2( 94.4923, 70.5019 )
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 4, 4 )
@@ -385,18 +413,18 @@ anims/walk_right = SubResource( 12 )
 anims/walk_up = SubResource( 13 )
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite/AnimationPlayer"]
-tree_root = SubResource( 63 )
+tree_root = SubResource( 75 )
 anim_player = NodePath("..")
 active = true
-parameters/playback = SubResource( 64 )
+parameters/playback = SubResource( 76 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 65 )
+shape = SubResource( 77 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 66 )
+shape = SubResource( 78 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -408,13 +436,36 @@ current = true
 [node name="SwipeDetector" parent="." instance=ExtResource( 3 )]
 process_method = "Fixed"
 
+[node name="AttackRight" type="Area2D" parent="SwipeDetector"]
+position = Vector2( 26.8537, -8.57825 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwipeDetector/AttackRight"]
+position = Vector2( 13.7538, -16.0376 )
+scale = Vector2( 1.24476, 1 )
+polygon = PoolVector2Array( -36.8503, 10.1753, -36.8503, -9.8247, -24.7997, -9.8247, -4.71546, -4.8247, 3.31824, 15.1753, 3.31824, 35.1753, -14.7576, 35.1753, -17.0085, 21.3282, -24.7997, 10.1753 )
+
+[node name="SwipeArea" type="Area2D" parent="SwipeDetector"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwipeDetector/SwipeArea"]
+shape = SubResource( 79 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="name" type="Label" parent="."]
-margin_left = -16.2486
-margin_top = -23.2505
-margin_right = 18.7514
-margin_bottom = -9.25047
+margin_left = -18.1189
+margin_top = -72.3507
+margin_right = 16.8811
+margin_bottom = -58.3507
 text = "josue"
 
+[connection signal="pattern_detected" from="SwipeDetector" to="." method="_on_SwipeDetector_pattern_detected"]
 [connection signal="swipe_ended" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_ended"]
 [connection signal="swipe_failed" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_failed"]
 [connection signal="swipe_started" from="SwipeDetector" to="." method="_on_SwipeDetector_swipe_started"]
