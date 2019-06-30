@@ -436,16 +436,16 @@ current = true
 [node name="SwipeDetector" parent="." instance=ExtResource( 3 )]
 process_method = "Fixed"
 
-[node name="AttackRight" type="Area2D" parent="SwipeDetector"]
-position = Vector2( 26.8537, -8.57825 )
+[node name="AttackArea" type="Area2D" parent="SwipeDetector"]
+position = Vector2( 27.0402, -8.57825 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwipeDetector/AttackRight"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwipeDetector/AttackArea"]
 position = Vector2( 13.7538, -16.0376 )
 scale = Vector2( 1.24476, 1 )
-polygon = PoolVector2Array( -36.8503, 10.1753, -36.8503, -9.8247, -24.7997, -9.8247, -4.71546, -4.8247, 3.31824, 15.1753, 3.31824, 35.1753, -14.7576, 35.1753, -17.0085, 21.3282, -24.7997, 10.1753 )
+polygon = PoolVector2Array( -53.5634, -6.83081, -41.8778, -10.1875, -24.7997, -9.8247, -7.12077, -5.71191, 3.31824, 15.1753, 3.31824, 35.1753, -14.7576, 35.1753, -17.0085, 21.3282, -24.7997, 10.1753, -40.2299, 9.95272, -48.0202, 17.4121, -53.2638, 33.4497, -69.7434, 33.0767, -68.3951, 16.6661, -63.601, 2.67986 )
 
 [node name="SwipeArea" type="Area2D" parent="SwipeDetector"]
 __meta__ = {

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+	extends KinematicBody2D
 
 #onready var trail = $Trail
 #onready var sectors = $Sectors
@@ -18,7 +18,16 @@ var init_time
 var elapsed_time
 var DO_DASH = 40
 var DISTANCE_DASH =  5000
+var SWIPE_TOLERANCE = 10
+var DO_SWIPE_01_X = 95
+var DO_SWIPE_01_Y = 100
 var prev_area
+var ini_area
+var lock_area
+var lock_swipe
+var count_tolerance 
+var flag_swipe
+
 #Network
 slave var slave_position = Vector2()
 # ToDo List:
@@ -53,6 +62,7 @@ func _ready():
 	anim_handler.start("idle_down")
 	prev_dir = ""
 	prev_area = ""
+	lock_swipe = 0
 	pass
 
 func _physics_process(delta):
@@ -104,26 +114,44 @@ func _on_SwipeDetector_swipe_started( partial_gesture ):
 	init_time = OS.get_ticks_msec()
 	updpoint = Vector2(0,0)
 	endpoint = Vector2(0,0)
+	count_tolerance = 0
 	
-	prev_area = partial_gesture.get_area().get_name()
-	print('\n--Area detected::',partial_gesture.get_area().get_name())
+	ini_area = partial_gesture.get_area().get_name()
+	flag_swipe = 1
+	if partial_gesture.get_area().get_name() != "SwipeArea" and !lock_swipe:
+		lock_swipe = 1
+		lock_area = partial_gesture.get_area().get_name()
+	elif partial_gesture.get_area().get_name() != "SwipeArea":
+		init_time = 0
+
 	#self.position=startpoint
 	pass
   #trail.set_position(point)
   #trail.set_emitting(true)
 
+# This callback is called by all Areas affected
 func _on_SwipeDetector_swipe_updated( partial_gesture ):
+	
+	if prev_area != partial_gesture.get_area().get_name():
+		count_tolerance = 0
+	else:
+		count_tolerance += 1
+	
+	prev_area = partial_gesture.get_area().get_name()
 	updpoint = partial_gesture.last_point()
-	# print(updpoint)
+	
+	if count_tolerance > SWIPE_TOLERANCE:
+		flag_swipe = 0
+	
 	pass
-  #trail.set_position(point)
+# trail.set_position(point)
 
   
 func _on_SwipeDetector_swipe_ended( gesture ):
-	print('--Swipe ended--\n')
-	print('--Final area::', gesture.get_area().get_name())
-	
+	if prev_area == lock_area:
+		lock_swipe = 0	
 	endpoint = gesture.last_point()
+	
 	init_time  = 0
 	elapsed_time = 0
 	# print(endpoint)
@@ -132,7 +160,6 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 	
 	var delta_x = startpoint.x - endpoint.x
 	var delta_y = startpoint.y - endpoint.y
-	
 	# ToDo Add code for attack gestures. Only dash is considered 
 	# The threshold for doing the dash is 40
 	# This only supports 4 directions (up, down, left, right)
@@ -145,10 +172,15 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 		move_and_slide(dir_vector * DISTANCE_DASH , Vector2(0,0))
 		pass
 	
-	if prev_area != gesture.get_area().get_name():
-		# gesture.swipe_stop(prev_area, true)
-		print('here')
+	# TODO ERROR HERE... TRY TO COMBINE CONDITIONS
+	print('delta_x::', delta_x, '  delta_y::', delta_y)
+	print(gesture.get_speed())
+	print(gesture.get_duration())
+	if flag_swipe and (delta_x >= DO_SWIPE_01_X) and (delta_y >= DO_SWIPE_01_Y):
+		print('ATTACK')
 		pass
+	
+	
 	
 	"""
 	print("angle:",str(gesture.get_direction_angle()))
@@ -159,22 +191,21 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 	"""
 	pass
 
-
 func _on_SwipeDetector_swiped( gesture ):
-	#dir = gesture.get_direction()7
+	# dir = gesture.get_direction()
 	var curve =gesture.get_curve()
-	
 	# print('last ', gesture.last_point())
 	pass
-
 
 func _on_SwipeDetector_swipe_failed():
 	# print("curr_position",self.position)
 	# print("gesture last point")
 	init_time = 0
 	elapsed_time = 0
+	if ini_area == lock_area:
+		lock_swipe = 0
 	# print('Swipe_failed')
-	
+
 func init(nickname, start_position, is_slave):
 	$name.text = nickname
 	global_position = start_position
