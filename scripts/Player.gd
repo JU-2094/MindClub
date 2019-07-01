@@ -27,6 +27,7 @@ var lock_area
 var lock_swipe
 var count_tolerance 
 var flag_swipe
+export var nslots = 20
 
 #Network
 slave var slave_position = Vector2()
@@ -56,6 +57,7 @@ func map_dir(vec_d):
 	
 func _ready():
 	# print(self.global_position)
+	dognut()
 	init_time = 0
 	elapsed_time = 0
 	anim_handler = get_node("Sprite/AnimationPlayer/AnimationTree").get("parameters/playback")
@@ -215,3 +217,22 @@ func init(nickname, start_position, is_slave):
 func _on_SwipeDetector_pattern_detected(pattern_name, actual_gesture):
 	print('Pattern detected::', pattern_name)
 	pass # Replace with function body.
+func dognut():
+	var cnt =1
+	var temppoint = Vector2()
+	print("inner circle:")
+	for i in range(0,nslots):
+		var angle = cnt *(360/nslots)
+		temppoint.x=self.position.x+ 100 * cos(deg2rad(angle))
+		temppoint.y=self.position.y+ 100 * sin(deg2rad(angle))
+		print(temppoint)
+		cnt = cnt +1
+	print("outer circle:")
+	cnt =1
+	for i in range(0,nslots):
+		var angle = cnt *(360/nslots)
+		temppoint.x=self.position.x+ 200 * cos(deg2rad(angle))
+		temppoint.y=self.position.y+ 200 * sin(deg2rad(angle))
+		print(temppoint)
+		cnt = cnt +1
+	pass

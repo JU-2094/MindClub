@@ -437,7 +437,7 @@ current = true
 process_method = "Fixed"
 
 [node name="AttackArea" type="Area2D" parent="SwipeDetector"]
-position = Vector2( 27.0402, -8.57825 )
+position = Vector2( 27.6864, -8.57825 )
 __meta__ = {
 "_edit_group_": true
 }
