@@ -27,7 +27,7 @@ var lock_area
 var lock_swipe
 var count_tolerance 
 var flag_swipe
-export var nslots = 20
+export var nslots = 15
 
 #Network
 slave var slave_position = Vector2()
@@ -57,7 +57,7 @@ func map_dir(vec_d):
 	
 func _ready():
 	# print(self.global_position)
-	dognut()
+	# dognut()
 	init_time = 0
 	elapsed_time = 0
 	anim_handler = get_node("Sprite/AnimationPlayer/AnimationTree").get("parameters/playback")
@@ -65,6 +65,7 @@ func _ready():
 	prev_dir = ""
 	prev_area = ""
 	lock_swipe = 0
+	flag_swipe = 0
 	pass
 
 func _physics_process(delta):
@@ -125,6 +126,7 @@ func _on_SwipeDetector_swipe_started( partial_gesture ):
 		lock_area = partial_gesture.get_area().get_name()
 	elif partial_gesture.get_area().get_name() != "SwipeArea":
 		init_time = 0
+		flag_swipe = 0
 
 	#self.position=startpoint
 	pass
@@ -150,6 +152,9 @@ func _on_SwipeDetector_swipe_updated( partial_gesture ):
 
   
 func _on_SwipeDetector_swipe_ended( gesture ):
+	var check_dash = 0
+	var dir_str
+	
 	if prev_area == lock_area:
 		lock_swipe = 0	
 	endpoint = gesture.last_point()
@@ -165,22 +170,38 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 	# ToDo Add code for attack gestures. Only dash is considered 
 	# The threshold for doing the dash is 40
 	# This only supports 4 directions (up, down, left, right)
-	if dir_vector.y != 0 and delta_x > DO_DASH:
-		return
-	elif dir_vector.x != 0 and delta_y > DO_DASH:
-		return
 	
-	if gesture.get_speed() > 1000 and gesture.get_duration() < 0.2:
-		move_and_slide(dir_vector * DISTANCE_DASH , Vector2(0,0))
-		pass
+	print('----')
+	print('flag_swipe::', flag_swipe)
+	print('delta_x::', delta_x, ' , delta_y::', delta_y)
+	print('speed::', gesture.get_speed())
+	print('duration::', gesture.get_duration())
 	
-	# TODO ERROR HERE... TRY TO COMBINE CONDITIONS
-	print('delta_x::', delta_x, '  delta_y::', delta_y)
-	print(gesture.get_speed())
-	print(gesture.get_duration())
-	if flag_swipe and (delta_x >= DO_SWIPE_01_X) and (delta_y >= DO_SWIPE_01_Y):
-		print('ATTACK')
-		pass
+	
+	if flag_swipe:
+		if  (abs(delta_x) >= DO_SWIPE_01_X) and (abs(delta_y) >= DO_SWIPE_01_Y) and \
+			gesture.get_speed() > 500:
+			dir_str = map_dir(dir_vector)
+			if dir_str.find("up") != -1 :
+				dir_str = "down"
+			elif dir_str.find("down") != -1:
+				dir_str = "up"
+			print('attack for dir::', dir_str)
+			if dir_str in ["down", "up", "left", "right"]:
+				print('execute attack')
+				anim_handler.travel("idle_"+dir_str)
+				anim_handler.travel("attack_"+dir_str)
+				
+		else:
+			check_dash = 1
+	
+	if !flag_swipe or check_dash:
+		if dir_vector.y != 0 and delta_x > DO_DASH:
+			return
+		elif dir_vector.x != 0 and delta_y > DO_DASH:
+			return	
+		if gesture.get_speed() > 1000 and gesture.get_duration() < 0.2:
+			move_and_slide(dir_vector * DISTANCE_DASH , Vector2(0,0))
 	
 	
 	
@@ -191,6 +212,7 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 	print("speed:", gesture.get_speed())
 	print("duration:,", gesture.get_duration())
 	"""
+	flag_swipe = 0
 	pass
 
 func _on_SwipeDetector_swiped( gesture ):
@@ -217,22 +239,29 @@ func init(nickname, start_position, is_slave):
 func _on_SwipeDetector_pattern_detected(pattern_name, actual_gesture):
 	print('Pattern detected::', pattern_name)
 	pass # Replace with function body.
+
+
+"""
+nslots - amount of points
+number multiplying the angle is the anchor
+
+"""
 func dognut():
 	var cnt =1
 	var temppoint = Vector2()
 	print("inner circle:")
 	for i in range(0,nslots):
 		var angle = cnt *(360/nslots)
-		temppoint.x=self.position.x+ 100 * cos(deg2rad(angle))
-		temppoint.y=self.position.y+ 100 * sin(deg2rad(angle))
+		temppoint.x=self.position.x+ 10* cos(deg2rad(angle))
+		temppoint.y=self.position.y+ 15 * sin(deg2rad(angle))
 		print(temppoint)
 		cnt = cnt +1
 	print("outer circle:")
 	cnt =1
 	for i in range(0,nslots):
 		var angle = cnt *(360/nslots)
-		temppoint.x=self.position.x+ 200 * cos(deg2rad(angle))
-		temppoint.y=self.position.y+ 200 * sin(deg2rad(angle))
+		temppoint.x=self.position.x+ 45 * cos(deg2rad(angle))
+		temppoint.y=self.position.y+ 55 * sin(deg2rad(angle))
 		print(temppoint)
 		cnt = cnt +1
 	pass
