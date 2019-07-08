@@ -1,4 +1,4 @@
-	extends KinematicBody2D
+extends KinematicBody2D
 
 #onready var trail = $Trail
 #onready var sectors = $Sectors
@@ -38,6 +38,17 @@ slave var slave_position = Vector2()
 #   -- Do the animation for sliding, for the moment its teleporting
 # CHECK OTHERS TODO IN THE CODE
 
+func init(info):
+	$name.text = info.name
+	global_position = info.position
+	
+	# print("id net::", get_tree().get_network_unique_id())
+	# if info.id != get_tree().get_network_unique_id():
+	#	remove_child($SwipeDetector)
+func remove_nodes():
+	remove_child($SwipeDetector)
+	remove_child($Camera2D)
+	
 func map_dir(vec_d):
 	var str_dir = ""
 	if vec_d.y == 1:
@@ -104,12 +115,14 @@ func _physics_process(delta):
 		
 		move_and_slide(direction, Vector2(0,0))
 	
+	"""
 	if is_network_master():
 		rset_unreliable('slave_position', position)
 	else:
 		position = slave_position
 	if get_tree().is_network_server():
 		Network.update_position(int(name), position)
+	"""
 
 func _on_SwipeDetector_swipe_started( partial_gesture ):
 	startpoint = partial_gesture.last_point()
@@ -171,12 +184,13 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 	# The threshold for doing the dash is 40
 	# This only supports 4 directions (up, down, left, right)
 	
+	"""
 	print('----')
 	print('flag_swipe::', flag_swipe)
 	print('delta_x::', delta_x, ' , delta_y::', delta_y)
 	print('speed::', gesture.get_speed())
 	print('duration::', gesture.get_duration())
-	
+	"""
 	
 	if flag_swipe:
 		if  (abs(delta_x) >= DO_SWIPE_01_X) and (abs(delta_y) >= DO_SWIPE_01_Y) and \
@@ -186,9 +200,9 @@ func _on_SwipeDetector_swipe_ended( gesture ):
 				dir_str = "down"
 			elif dir_str.find("down") != -1:
 				dir_str = "up"
-			print('attack for dir::', dir_str)
+			# print('attack for dir::', dir_str)
 			if dir_str in ["down", "up", "left", "right"]:
-				print('execute attack')
+				# print('execute attack')
 				anim_handler.travel("idle_"+dir_str)
 				anim_handler.travel("attack_"+dir_str)
 				
@@ -229,12 +243,6 @@ func _on_SwipeDetector_swipe_failed():
 	if ini_area == lock_area:
 		lock_swipe = 0
 	# print('Swipe_failed')
-
-func init(nickname, start_position, is_slave):
-	$name.text = nickname
-	global_position = start_position
-	if is_slave:
-		print("slave!!",nickname)
 
 func _on_SwipeDetector_pattern_detected(pattern_name, actual_gesture):
 	print('Pattern detected::', pattern_name)
