@@ -426,6 +426,7 @@ shape = SubResource( 77 )
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource( 78 )
 
 [node name="Camera2D" type="Camera2D" parent="."]

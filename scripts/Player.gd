@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-#onready var trail = $Trail
+#onready var trail = $Trail 
 #onready var sectors = $Sectors
 export var speed = 100
 var velocity   = Vector2()
